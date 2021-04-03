@@ -94,18 +94,24 @@ export const detailWrapper = css`
   .pokemon-modal {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background: rgba(255, 255, 255, 0.7);
     z-index: 5;
     max-width: none;
-    transform: translateX(100%);
     transition: .3s all ease-in-out;
     padding: 8rem 2rem 0;
+    opacity: 0;
+    visibility: hidden;
     
     &.show {
-      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+      
+      .pokemon-modal-wrapper {
+        transform: scale(1);
+      }
     }
     
     .pokemon-modal-wrapper {
@@ -113,6 +119,10 @@ export const detailWrapper = css`
       padding: 1.5rem;
       border-radius: 0.75rem;
       text-align: center;
+      max-width: 400px;
+      margin: 0 auto;
+      transform: scale(0);
+      transition: .3s all ease-in-out;
       
       .pokemon-name {
         color: ${baseRed};

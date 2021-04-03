@@ -25,7 +25,6 @@ const toTitleCase = (str: string) => {
 const getRandomColor = () => {
   const colors = [
     baseRed,
-    baseYellow,
     baseGreen,
     baseBlue,
   ];
