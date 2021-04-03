@@ -1,0 +1,16 @@
+{
+  "short_name": "pokemon-app",
+  "name": "Pokemon App",
+  "icons": [
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "../",
+  "display": "standalone",
+  "theme_color": "#fb6d6c",
+  "background_color": "#ffffff"
+}
