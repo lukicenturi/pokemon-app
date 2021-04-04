@@ -138,7 +138,14 @@ export const detailWrapper = css`
       }
       
       .pokemon-modal-action {
-        padding-top: 2rem;
+        padding-top: 1.5rem;
+        
+        label {
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+        }
         input {
           font-size: 1rem;
           border: 2px solid #ddd;
@@ -146,6 +153,7 @@ export const detailWrapper = css`
           padding: 0.75rem 1.25rem;
           width: 100%;
           text-align: center;
+          margin-top: 0.5rem;
         }
         button {
           width: 100%;

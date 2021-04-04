@@ -112,7 +112,7 @@ const RouteSwitcher = () => {
     route => matchPath(location.pathname, route)
   );
 
-  const isDetailPage = currentRoute!.name === 'Detail';
+  const isDetailPage = currentRoute?.name === 'Detail';
 
   return (
     <div css={boxWrapper(isDetailPage)}>

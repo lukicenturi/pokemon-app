@@ -3,33 +3,17 @@ import { PokemonData, PokemonDataVars } from '@/models/pokemon';
 import { GET_POKEMON } from '@/queries/detail';
 import { useParams } from 'react-router-dom'
 import { detailWrapper } from './Detail.style';
-import { baseBlue, baseColor, baseDarkRed, baseGreen, baseRed, baseYellow } from '@/variables';
+import { baseColor, baseDarkRed } from '@/variables';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import PokemonService from '@/services/pokemon.service';
+import { CommonUtil } from '@/utils/common.util';
+import toTitleCase = CommonUtil.toTitleCase;
+import getRandomColor = CommonUtil.getRandomColor;
 
 const getImage = (id: string) => {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`;
-}
-
-const toTitleCase = (str: string) => {
-  return str.replace(/\-/g, ' ').replace(
-    /\w\S*/g,
-    function (txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    }
-  );
-}
-
-const getRandomColor = () => {
-  const colors = [
-    baseRed,
-    baseGreen,
-    baseBlue,
-  ];
-
-  return colors[Math.floor(Math.random() * colors.length)];
 }
 
 const PokemonMovesWrapper = ({ pokemon }) => {
@@ -37,7 +21,7 @@ const PokemonMovesWrapper = ({ pokemon }) => {
     <div className="pokemon-moves-wrapper">
       {
         pokemon.moves.map((move) => (
-          <div className="pokemon-move" style={{ backgroundColor: getRandomColor()}} key={move.move.name}>{toTitleCase(move.move.name)}</div>
+          <div className="pokemon-move" data-testid="pokemon-move" style={{ backgroundColor: getRandomColor()}} key={move.move.name}>{toTitleCase(move.move.name)}</div>
         ))
       }
     </div>
@@ -144,12 +128,12 @@ const Detail = () => {
   return (
     <div css={detailWrapper}>
       <div>
-        <div className="pokemon-name title-case">{pokemon.name}</div>
+        <div data-testid="pokemon-name" className="pokemon-name title-case">{pokemon.name}</div>
         <div className="badge-wrapper">
-          <div className="badge">{PokemonService.getPokemonOwned(pokemon.name)} Owned</div>
+          <div className="badge"><span data-testid="pokemon-owned">{PokemonService.getPokemonOwned(pokemon.name)}</span> Owned</div>
           {
             pokemon.types.map((type) => (
-              <div className="badge title-case" key={type.type.name}>{type.type.name}</div>
+              <div className="badge title-case" data-testid="pokemon-type" key={type.type.name}>{type.type.name}</div>
             ))
           }
         </div>
@@ -166,9 +150,10 @@ const Detail = () => {
       </div>
       <div className={"pokemon-modal pokemon-success-modal " + (showFailed ? 'show' : '')}>
         <div className="pokemon-modal-wrapper">
+          { showFailed && <input type="hidden" data-testid="catch-status" value="failed"/> }
           <h2>Ouch, try again!</h2>
           <div className="pokemon-modal-action">
-            <button className="btn-red" onClick={() => setShowFailed(false)}>
+            <button data-testid="failed-close-button" className="btn-red" onClick={() => setShowFailed(false)}>
               Close
             </button>
           </div>
@@ -176,6 +161,7 @@ const Detail = () => {
       </div>
       <div className={"pokemon-modal pokemon-success-modal " + (showSuccess ? 'show' : '')}>
         <div className="pokemon-modal-wrapper">
+          { showSuccess && <input type="hidden" data-testid="catch-status" value="success"/> }
           <h4>You successfully caught</h4>
           <div className="title-case pokemon-name">{pokemon.name}</div>
           <div className="className pokemon-image">
@@ -185,8 +171,9 @@ const Detail = () => {
             {
               !saved && (
                 <>
-                  <input type="text" placeholder="Give your pokemon a name" value={pokemonName} onInput={onPokemonNameInput}/>
-                  <button className="btn-soft-red" onClick={savePokemon} disabled={!isNameValid}>
+                  <label htmlFor="name-input">Give me a name</label>
+                  <input data-testid="name-input" id="name-input" type="text" placeholder="Give your pokemon a name" value={pokemonName} onInput={onPokemonNameInput}/>
+                  <button data-testid="name-submit-button" className="btn-soft-red" onClick={savePokemon} disabled={!isNameValid}>
                     { isNameValid ? 'Submit' : 'Ouch, try different name'}
                   </button>
                 </>
@@ -194,14 +181,14 @@ const Detail = () => {
             }
             {
               saved && (
-                <Link to='/my-pokemon'>
+                <Link data-testid="pokemon-list-button" to='/my-pokemon'>
                   <button className="btn-soft-red">
                     Check Your Pokemon List
                   </button>
                 </Link>
               )
             }
-            <button className="btn-red" onClick={closeModal}>
+            <button data-testid="success-close-button" className="btn-red" onClick={closeModal}>
               Close
             </button>
           </div>

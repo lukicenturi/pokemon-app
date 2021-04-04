@@ -7,7 +7,11 @@
       "esnext"
     ],
     "types": [
-      "@emotion/react/types/css-prop"
+      "jest",
+      "@emotion/react/types/css-prop",
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -31,5 +35,6 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.tsx"]
 }

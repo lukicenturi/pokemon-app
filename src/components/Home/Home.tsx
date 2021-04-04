@@ -6,6 +6,7 @@ import PokemonCard from '@/components/PokemonCard/PokemonCard';
 import { pokemonGrid } from './Home.style';
 
 const Home = () => {
+
   const {
     loading,
     data
@@ -19,7 +20,7 @@ const Home = () => {
   if (loading) {
     return (
       <div>
-        <h1>Pokelist</h1>
+        <h1 data-testid="header-title">Pokelist</h1>
         <div css={pokemonGrid}>
           {
             [...Array(20)].map((e, i) => (
@@ -35,7 +36,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Pokelist</h1>
+      <h1 data-testid="header-title">Pokelist</h1>
       <div css={pokemonGrid}>
         {
           pokemons.map((pokemon: Pokemon) => (

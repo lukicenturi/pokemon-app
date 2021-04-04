@@ -18,7 +18,7 @@ const PokemonCard = ({ pokemon, loading = false }: PokemonCardProps) => {
     <Link to={'/' + pokemon!.name} className="text-link">
       <div css={pokemonCard}>
         <div className="pokemon-name title-case">{pokemon!.name}</div>
-        <span className="pokemon-owned">{PokemonService.getPokemonOwned(pokemon!.name)} Owned</span>
+        <span className="pokemon-owned"><span data-testid="pokemon-owned">{PokemonService.getPokemonOwned(pokemon!.name)}</span> Owned</span>
         <div className="pokemon-image">
           <img src={pokemon!.image} alt={pokemon!.name}/>
         </div>

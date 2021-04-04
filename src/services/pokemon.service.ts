@@ -25,7 +25,7 @@ export default class PokemonService {
       list[pokemon.name].names = [];
     }
 
-    if (!this.isNameUsed(pokemon.name)) {
+    if (!this.isNameUsed(name)) {
       list[pokemon.name].names.push(name);
     }
 
