@@ -58,6 +58,7 @@ module.exports = {
       patterns: [
         { from: 'src/manifest.json', to: 'manifest.json' },
         { from: 'src/assets/images/pokemon-icon.png', to: 'logo.png' },
+        { from: 'robots.txt', to: 'robots.txt' },
       ]
     }),
   ]
